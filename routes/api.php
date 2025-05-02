@@ -2,6 +2,7 @@
 
 
 
+use App\Http\Controllers\Api\V1\CategoryController;
 use App\Http\Controllers\Api\V1\LoginController;
 use App\Http\Controllers\Api\V1\LogoutController;
 use App\Http\Controllers\Api\V1\RegisterController;
@@ -31,10 +32,29 @@ use App\Http\Controllers\Api\V1\RestaurantController;
        // update a specific restaurant
      Route::post('{restaurant}', [RestaurantController::class, 'update']);
 
-
        // delete a specific restaurant
      Route::delete('{restaurant}', [RestaurantController::class, 'destroy']);
 
+
+     // Category routes
+     Route::prefix('{restaurant}/category')->group(function()
+     {
+        // add a new category for a specific restaurant
+        Route::post('add', [CategoryController::class,'store']);
+
+        // get all categories for a specific restaurant
+        Route::get('list', [CategoryController::class,'index']);
+
+       // get a specific category for a specific restaurant.
+        Route::get('{category}', [CategoryController::class,'show']);
+
+       // Update a specific category related to a specific restaurant.
+        Route::post('update/{category}', [CategoryController::class,'update']);
+
+        // Delete a specific category related to a specific restaurant.
+        Route::delete('delete/{category}', [CategoryController::class,'destroy']);
+     }
+    );
 
     });
  }

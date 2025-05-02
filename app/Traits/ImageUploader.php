@@ -7,7 +7,7 @@ namespace App\Traits;
 use Illuminate\Http\UploadedFile;
 
 
-trait ImageUpload
+trait ImageUploader
 {
     public function uploadImage(UploadedFile $image, string $folder = 'uploads'): string
     {

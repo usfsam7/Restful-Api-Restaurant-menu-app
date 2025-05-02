@@ -5,12 +5,12 @@ use App\Http\Controllers\Controller;
 use App\Models\Restaurant;
 use App\Http\Requests\StoreRestaurantRequest;
 use App\Http\Requests\UpdateRestaurantRequest;
-use App\Traits\ImageUpload;
+use App\Traits\ImageUploader;
 
 class RestaurantController extends Controller
 {
     // our trait for handling image uploading.
-    use ImageUpload;
+    use ImageUploader;
     /**
         * Listing all restaurants in the database.
      */
@@ -44,10 +44,7 @@ class RestaurantController extends Controller
 
         if ($request->hasFile('image'))
         {
-        //  $url = $request->file('image')->storePublicly('restaurants', ['disk'=>'public']);
-        //  $restaurant->image()->create([
-        //     'url'=> $url
-        //  ]);
+
         $url = $this->uploadImage($request->file('image'), 'restaurants');
         $restaurant->image()->create([
             'url' => $url,
@@ -56,8 +53,9 @@ class RestaurantController extends Controller
         }
 
         return response()->json([
-           'msg' => 'Success operation',
-          'restaurant' => $restaurant
+           'msg' => 'restaurant add successfully',
+           'restaurant' => $restaurant,
+           'restaurant_logo' => $url
         ]);
     }
 
