@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -42,5 +43,9 @@ class Restaurant extends Model
     }
 
 
+    public function items(): HasManyThrough
+    {
+        return $this->hasManyThrough(Item::class, Category::class);
+    }
 
 }
